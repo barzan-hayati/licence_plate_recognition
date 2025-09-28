@@ -9,10 +9,18 @@
         "/usr/local/cuda/include",
         "/usr/lib/x86_64-linux-gnu/glib-2.0/include",
         "/opt/nvidia/deepstream/deepstream-7.1/sources/includes",
+        "/opt/nvidia/deepstream/deepstream-7.1/service-maker/includes/",
         "/usr/include/gstreamer-1.0",
         "/usr/include/nlohmann",
         "/usr/include/glib-2.0"
       ],
+      "browse": {
+          "path": [
+              "${workspaceFolder}/**",
+              "/opt/nvidia/deepstream/deepstream-7.1/service-maker/includes/"
+          ],
+          "limitSymbolsToIncludedHeaders": true
+      },
       "defines": [],
       // "compilerPath": "/usr/bin/gcc",
       "compilerPath": "/usr/bin/g++",
