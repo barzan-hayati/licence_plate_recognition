@@ -1,7 +1,7 @@
 #include "../include/my_libraries/config_manager.hpp"
 
 ConfigManager::ConfigManager() {
-    std::ifstream file("../data/configuration.json");
+    std::ifstream file("../config/configuration.json");
     if (!file) {
         throw std::runtime_error("Could not open configuration.json");
     }
