@@ -90,7 +90,6 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 #     src/main.cpp
 #     src/pipeline_manager.cpp
 #     src/nv_tracker_manager.cpp
-#     src/face_nv_infer_server_manager.cpp
 #     src/nv_osd_manager.cpp
 #     PROPERTIES COMPILE_FLAGS "-Wno-missing-field-initializers"
 # )

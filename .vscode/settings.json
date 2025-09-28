@@ -56,5 +56,11 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "cmake.generator": "Unix Makefiles"
+  "cmake.generator": "Unix Makefiles",
+  "files.associations": {
+    "iostream": "cpp",
+    "fstream": "cpp",
+    "chrono": "cpp",
+    "stdexcept": "cpp"
+  }
 }
