@@ -1,9 +1,11 @@
+#include <gst/gst.h>
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <thread>
-#include <gst/gst.h>
+
 #include "../include/my_libraries/camera_manager.hpp"
 #include "../include/my_libraries/pipeline_manager.hpp"
 
@@ -75,8 +77,7 @@ int main(int argc, char *argv[]) {
 
     PipelineManager *pipeline_manager =
         new PipelineManager(num_sources, url_camera);
-    if (!pipeline_manager->create_pipeline())
-    {
+    if (!pipeline_manager->create_pipeline()) {
         g_printerr("pipeline could not be created. Exiting.");
         return 0;
     }

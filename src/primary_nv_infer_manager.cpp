@@ -23,7 +23,8 @@ float PrimaryNvInferManager::threshold_car_detection = 0;
 unsigned int PrimaryNvInferManager::nvds_lib_major_version = NVDS_VERSION_MAJOR;
 unsigned int PrimaryNvInferManager::nvds_lib_minor_version = NVDS_VERSION_MINOR;
 
-const gchar pgie_class_str[PGIE_DETECTED_CLASS_NUM][32] = {"CAR_NVINFER", "Truck", "Cycle"};
+const gchar pgie_class_str[PGIE_DETECTED_CLASS_NUM][32] = {"CAR_NVINFER",
+                                                           "Truck", "Cycle"};
 
 /* nvds_lib_major_version and nvds_lib_minor_version is the version number of
  * deepstream sdk */
@@ -47,8 +48,9 @@ bool PrimaryNvInferManager::create_primary_nv_infer(int num_sources) {
     /* Configure the nvinferserver element using the config file. */
     primary_detector =
         gst_element_factory_make("nvinfer", "primary-nvinference-engine");
-	g_object_set (G_OBJECT (primary_detector), "config-file-path", primary_nv_infer_config_file.c_str(),
-    "unique-id", PRIMARY_DETECTOR_UID, NULL);
+    g_object_set(G_OBJECT(primary_detector), "config-file-path",
+                 primary_nv_infer_config_file.c_str(), "unique-id",
+                 PRIMARY_DETECTOR_UID, NULL);
 
     /* Override the batch-size set in the config file with the number of
      * sources. */

@@ -80,7 +80,8 @@ gboolean MessageHandling::bus_call(GstBus *bus, GstMessage *msg,
             //           gst_message_type_get_name(GST_MESSAGE_TYPE(msg)));
 
             // g_print (gst_message_type_get_name(GST_MESSAGE_TYPE(msg)));
-            // g_print("%s\n", gst_message_type_get_name(GST_MESSAGE_TYPE(msg)));
+            // g_print("%s\n",
+            // gst_message_type_get_name(GST_MESSAGE_TYPE(msg)));
 
             // g_print (GST_MESSAGE_TYPE (msg));
 

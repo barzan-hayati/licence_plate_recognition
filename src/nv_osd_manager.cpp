@@ -8,9 +8,7 @@
        // OSD_PROCESS_MODE set to 1
 #define OSD_DISPLAY_TEXT 1
 
-
-NvOsdManager::NvOsdManager() {
-}
+NvOsdManager::NvOsdManager() {}
 
 bool NvOsdManager::create_nv_osd() {
     /* Create OSD to draw on the converted RGBA buffer */

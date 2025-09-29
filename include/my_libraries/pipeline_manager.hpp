@@ -2,25 +2,25 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-#include <fstream>
 #include <chrono>
+#include <fstream>
 #include <iostream>
 
+#include "config_manager.hpp"
 #include "cuda_runtime_api.h"
 #include "gstnvdsmeta.h"
-#include "config_manager.hpp"
-#include "streammux_manager.hpp"
-#include "source_bin.hpp"
-#include "tiler_manager.hpp"
-#include "nv_video_convert_manager.hpp"
-#include "nv_osd_manager.hpp"
-#include "queue_manager.hpp"
-#include "nv_ds_logger_manager.hpp"
-#include "sink_manager.hpp"
-#include "rtsp_streaming_manager.hpp"
 #include "message_handling.hpp"
+#include "nv_ds_logger_manager.hpp"
+#include "nv_osd_manager.hpp"
+#include "nv_tracker_manager.hpp"
+#include "nv_video_convert_manager.hpp"
 #include "primary_nv_infer_manager.hpp"
-
+#include "queue_manager.hpp"
+#include "rtsp_streaming_manager.hpp"
+#include "sink_manager.hpp"
+#include "source_bin.hpp"
+#include "streammux_manager.hpp"
+#include "tiler_manager.hpp"
 
 class PipelineManager {
    private:
@@ -41,7 +41,9 @@ class PipelineManager {
     SinkManager *sink_manager = new SinkManager();
     RtspStreamingManager *rtsp_streaming_manager = new RtspStreamingManager();
     MessageHandling *message_handling = new MessageHandling();
-    PrimaryNvInferManager *primary_nv_infer_manager = new PrimaryNvInferManager();
+    PrimaryNvInferManager *primary_nv_infer_manager =
+        new PrimaryNvInferManager();
+    NvTrackerManager *nv_tracker_manager = new NvTrackerManager();
     typedef struct {
         TilerManager *tiler_manager;
     } DataPointer;
@@ -54,7 +56,6 @@ class PipelineManager {
     PipelineManager(int, char **);
     bool create_pipeline();
     bool create_pipeline_elements(int, char **);
-    bool connect_tee_to_queue();
     bool setup_pipeline();
     bool playing_pipeline(int, char **);
     bool status_playing;
@@ -74,14 +75,11 @@ class PipelineManager {
         last_time_buffer_probe;
     static gboolean event_thread_func(gpointer);
     static gboolean check_pipeline_state(gpointer);
-    static GstPadProbeReturn tee_sink_fps(GstPad *, GstPadProbeInfo *,
-                                          gpointer);
     static GstPadProbeReturn video_converter_src_fps(GstPad *,
                                                      GstPadProbeInfo *,
                                                      gpointer);
     static GstPadProbeReturn osd_sink_fps(GstPad *, GstPadProbeInfo *,
                                           gpointer);
-    void get_fps_tee();
     void get_fps_video_converter();
     void get_fps_osd();
     bool check_playing_pipeline();

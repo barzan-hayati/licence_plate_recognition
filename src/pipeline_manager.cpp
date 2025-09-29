@@ -118,8 +118,8 @@ GstPadProbeReturn PipelineManager::video_converter_src_fps(
             // g_print("fps_probe FPS: %.2f\n", fps_probe);
 
             std::cout << "==================== FPS in video converter is "
-                    << std::setprecision(4) << video_converter_fps
-                    << " ====================" << std::endl;
+                      << std::setprecision(4) << video_converter_fps
+                      << " ====================" << std::endl;
             last_time_fps_probe = current_time_fps_probe;
         }
     }
@@ -136,7 +136,6 @@ void PipelineManager::get_fps_video_converter() {
     gst_object_unref(pad);
     gst_object_unref(element);
 }
-
 
 bool PipelineManager::playing_pipeline(int num_sources, char** url_camera) {
     /* Set the pipeline to "playing" state */
@@ -195,33 +194,34 @@ bool PipelineManager::setup_pipeline() {
     if (sink_manager->display_output < 3) {
         gst_bin_add_many(
             GST_BIN(pipeline), primary_nv_infer_manager->primary_detector,
-            tiler_manager->tiler, queue_array[2].queue,
-            nv_video_convert_manager->nvvidconv, nv_osd_manager->nvosd, 
-            sink_manager->sink, NULL);
-        if (!gst_element_link_many(
-                streammux_manager->streammux,
-                nv_video_convert_manager->nvvidconv, 
-                primary_nv_infer_manager->primary_detector,
-                tiler_manager->tiler, nv_osd_manager->nvosd, sink_manager->sink, NULL)) {
+            nv_tracker_manager->tracker, tiler_manager->tiler,
+            queue_array[2].queue, nv_video_convert_manager->nvvidconv,
+            nv_osd_manager->nvosd, sink_manager->sink, NULL);
+        if (!gst_element_link_many(streammux_manager->streammux,
+                                   nv_video_convert_manager->nvvidconv,
+                                   primary_nv_infer_manager->primary_detector,
+                                   nv_tracker_manager->tracker,
+                                   tiler_manager->tiler, nv_osd_manager->nvosd,
+                                   sink_manager->sink, NULL)) {
             g_printerr("Could not link elements!.\n");
             return false;
         }
     } else {
         gst_bin_add_many(
             GST_BIN(pipeline), primary_nv_infer_manager->primary_detector,
-            tiler_manager->tiler, queue_array[2].queue,
-            nv_video_convert_manager->nvvidconv, nv_osd_manager->nvosd,
-            sink_manager->nvvidconv_postosd, sink_manager->caps,
-            sink_manager->encoder, sink_manager->rtppay, sink_manager->sink,
-            NULL);
+            nv_tracker_manager->tracker, tiler_manager->tiler,
+            queue_array[2].queue, nv_video_convert_manager->nvvidconv,
+            nv_osd_manager->nvosd, sink_manager->nvvidconv_postosd,
+            sink_manager->caps, sink_manager->encoder, sink_manager->rtppay,
+            sink_manager->sink, NULL);
         if (!gst_element_link_many(
                 streammux_manager->streammux,
                 nv_video_convert_manager->nvvidconv,
                 primary_nv_infer_manager->primary_detector,
-                tiler_manager->tiler, nv_osd_manager->nvosd, 
-                sink_manager->nvvidconv_postosd,
-                sink_manager->caps, sink_manager->encoder,
-                sink_manager->rtppay, sink_manager->sink, NULL)) {
+                nv_tracker_manager->tracker, tiler_manager->tiler,
+                nv_osd_manager->nvosd, sink_manager->nvvidconv_postosd,
+                sink_manager->caps, sink_manager->encoder, sink_manager->rtppay,
+                sink_manager->sink, NULL)) {
             g_printerr("Could not link elements!.\n");
             return false;
         }
@@ -266,14 +266,13 @@ bool PipelineManager::create_pipeline_elements(int num_sources,
         GstElement* source_bin;
         //        GstElement *source_bin = create_uridecode_bin (i,
         //        const_cast<char*>(first_video.c_str()));
-        g_print("Trying to create uridecode_bin for %s  \n",
-                url_camera[i + 1]);
+        g_print("Trying to create uridecode_bin for %s  \n", url_camera[i + 1]);
 
         source_bin = SourceBin::create_uridecode_bin(
             i, url_camera[i + 1], streammux_manager->streammux, prop);
         if (!source_bin) {
             g_printerr("Failed to create source bin for %s. Exiting.\n",
-                        url_camera[i + 1]);
+                       url_camera[i + 1]);
             return false;
         }
         // g_source_bin_list[i] = source_bin;
@@ -309,8 +308,8 @@ bool PipelineManager::create_pipeline_elements(int num_sources,
         return -1;
     }
 
-
     primary_nv_infer_manager->create_primary_nv_infer(num_sources);
+    nv_tracker_manager->create_nv_tracker();
 
     message_handling->create_message_handler(pipeline, g_run_forever, loop);
     setup_pipeline();
@@ -324,7 +323,6 @@ bool PipelineManager::create_pipeline_elements(int num_sources,
 
     new_mux_str = g_getenv("USE_NEW_NVSTREAMMUX");
     use_new_mux = !g_strcmp0(new_mux_str, "yes");
-
 
     auto start = std::chrono::system_clock::now();
     status_playing = playing_pipeline(num_sources, url_camera);

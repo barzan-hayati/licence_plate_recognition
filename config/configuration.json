@@ -14,7 +14,11 @@
     "host": "224.224.255.255",
     "pgie_batch_size": 1,
     "threshold_car_detection": 0.5,
-    "primary_nv_infer_config_file": "../config/config_infer_primary.txt",
+    "primary_nv_infer_config_file": "../config/inference/config_infer_primary.txt",
     "PGIE_NET_WIDTH": 416,
-    "PGIE_NET_HEIGHT": 416
+    "PGIE_NET_HEIGHT": 416,
+    "tracker": {
+        "ll-config-file": "../config/tracker/config_tracker_NvDCF_perf.yml",
+        "ll-lib-file": "../plugins/libnvds_nvmultiobjecttracker.so"
+    }
 }

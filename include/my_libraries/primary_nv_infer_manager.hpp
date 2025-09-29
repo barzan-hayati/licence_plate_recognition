@@ -5,12 +5,13 @@
 
 #include "config_manager.hpp"
 // #include "gstnvdsinfer.h"
+#include <algorithm>
+#include <cmath>
+
 #include "gstnvdsmeta.h"
 #include "nvds_version.h"
 #include "nvdsinfer_custom_impl.h"
 #include "custom_gstnvdsinfer.hpp"
-#include <algorithm>
-#include <cmath>
 
 class PrimaryNvInferManager {
    private:

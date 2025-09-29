@@ -6,4 +6,4 @@
 #include "nvdsinfer_custom_impl.h"
 #include "nvds_obj_encode.h"
 
-#endif  
+#endif

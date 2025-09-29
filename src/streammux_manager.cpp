@@ -1,6 +1,5 @@
 #include "../include/my_libraries/streammux_manager.hpp"
 
-
 #define SET_GPU_ID(object, gpu_id) \
     g_object_set(G_OBJECT(object), "gpu-id", gpu_id, NULL);
 #define GPU_ID 0
