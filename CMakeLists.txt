@@ -85,14 +85,12 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
 
 # missing initializer for member 'NvDsInferDims::d' [-Werror=missing-field-initializers] NvDsInferDims dims = {0};
-# set_source_files_properties(
-#     src/nv_infer_server_manager.cpp
-#     src/main.cpp
-#     src/pipeline_manager.cpp
-#     src/nv_tracker_manager.cpp
-#     src/nv_osd_manager.cpp
-#     PROPERTIES COMPILE_FLAGS "-Wno-missing-field-initializers"
-# )
+set_source_files_properties(
+    src/main.cpp
+    src/pipeline_manager.cpp
+    src/nv_osd_manager.cpp
+    PROPERTIES COMPILE_FLAGS "-Wno-missing-field-initializers"
+)
 
 
 # Create the executable
@@ -149,4 +147,5 @@ target_link_libraries(${PROJECT_NAME} ${GLIB_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} gstbase-1.0 gstreamer-1.0 gstrtp-1.0 gstvideo-1.0 gstrtspserver-1.0)
 target_link_libraries(${PROJECT_NAME} cudart cuda)
 target_link_libraries(${PROJECT_NAME} nvdsgst_infer nvds_meta nvds_inferutils
-                                      nvdsgst_meta nvds_utils nvdsgst_helper nvds_meta)
+                                      nvdsgst_meta nvds_utils nvdsgst_helper nvds_meta
+                                      nvds_batch_jpegenc)

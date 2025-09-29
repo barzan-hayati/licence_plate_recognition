@@ -1,4 +1,15 @@
 {
     "MUXER_OUTPUT_HEIGHT": 1080,
-    "MUXER_OUTPUT_WIDTH": 1920
+    "MUXER_OUTPUT_WIDTH": 1920,
+    "output_video_path": "test.mkv",
+    "display_output": 3,
+    "codec_rtsp_out": "H264",
+    "mount_address": "/rtsp-output",
+    "udp_buffer_size": 524288,
+    "clock_rate": 90000,
+    "bitrate": 4000000,
+    "payload": 96,
+    "rtsp_port": 3087,
+    "updsink_port_num": 5400,
+    "host": "224.224.255.255"
 }

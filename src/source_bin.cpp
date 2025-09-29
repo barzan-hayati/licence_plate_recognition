@@ -35,7 +35,7 @@ bool SourceBin::disable_audio = false;
 GstElement *SourceBin::nvmultiurisrcbin = NULL;
 
 void SourceBin::configs() {
-    const auto &config = ConfigManager::get_instance().get_config();
+    // const auto &config = ConfigManager::get_instance().get_config();
     // MUXER_OUTPUT_HEIGHT = config["MUXER_OUTPUT_HEIGHT"];
     // MUXER_OUTPUT_WIDTH = config["MUXER_OUTPUT_WIDTH"];
 }
