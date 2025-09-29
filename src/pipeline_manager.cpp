@@ -137,40 +137,6 @@ void PipelineManager::get_fps_video_converter() {
     gst_object_unref(element);
 }
 
-// GstPadProbeReturn PipelineManager::tee_sink_fps(GstPad* pad,
-//                                                 GstPadProbeInfo* info,
-//                                                 gpointer user_data) {
-//     (void)pad;        // This explicitly marks it as unused
-//     (void)info;       // This explicitly marks it as unused
-//     (void)user_data;  // This explicitly marks it as unused
-
-//     // auto* self = static_cast<PipelineManager*>(user_data);
-//     frame_count_buffer_probe++;
-//     std::chrono::time_point<std::chrono::steady_clock>
-//         current_time_buffer_probe = std::chrono::steady_clock::now();
-//     long long elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-//                             current_time_buffer_probe - last_time_buffer_probe)
-//                             .count();
-//     tee_fps = (double)(frame_count_buffer_probe * 1000 / (double)elapsed);
-//     if (elapsed >= 1000) {  // Update every second
-//         // g_print("FPS_buffer_probe: %.2f\n", fps_buffer_probe);
-//         frame_count_buffer_probe = 0;
-//         last_time_buffer_probe = current_time_buffer_probe;
-//         std::cout << "==================== FPS in tee is "
-//                   << std::setprecision(4) << tee_fps
-//                   << " ====================" << std::endl;
-//     }
-//     return GST_PAD_PROBE_OK;
-// }
-
-// void PipelineManager::get_fps_tee() {
-//     // --- BUFFER PROBE FOR FPS ---
-//     GstPad* sink_pad = gst_element_get_static_pad(
-//         tee_manager->tee, "sink");  // Or any element's pad
-//     gst_pad_add_probe(sink_pad, GST_PAD_PROBE_TYPE_BUFFER, tee_sink_fps, this,
-//                       NULL);
-//     gst_object_unref(sink_pad);
-// }
 
 bool PipelineManager::playing_pipeline(int num_sources, char** url_camera) {
     /* Set the pipeline to "playing" state */
@@ -228,20 +194,21 @@ bool PipelineManager::setup_pipeline() {
     // is dsexample pluging
     if (sink_manager->display_output < 3) {
         gst_bin_add_many(
-            GST_BIN(pipeline),
+            GST_BIN(pipeline), primary_nv_infer_manager->primary_detector,
             tiler_manager->tiler, queue_array[2].queue,
             nv_video_convert_manager->nvvidconv, nv_osd_manager->nvosd, 
             sink_manager->sink, NULL);
         if (!gst_element_link_many(
                 streammux_manager->streammux,
-                nv_video_convert_manager->nvvidconv,
+                nv_video_convert_manager->nvvidconv, 
+                primary_nv_infer_manager->primary_detector,
                 tiler_manager->tiler, nv_osd_manager->nvosd, sink_manager->sink, NULL)) {
             g_printerr("Could not link elements!.\n");
             return false;
         }
     } else {
         gst_bin_add_many(
-            GST_BIN(pipeline), 
+            GST_BIN(pipeline), primary_nv_infer_manager->primary_detector,
             tiler_manager->tiler, queue_array[2].queue,
             nv_video_convert_manager->nvvidconv, nv_osd_manager->nvosd,
             sink_manager->nvvidconv_postosd, sink_manager->caps,
@@ -250,6 +217,7 @@ bool PipelineManager::setup_pipeline() {
         if (!gst_element_link_many(
                 streammux_manager->streammux,
                 nv_video_convert_manager->nvvidconv,
+                primary_nv_infer_manager->primary_detector,
                 tiler_manager->tiler, nv_osd_manager->nvosd, 
                 sink_manager->nvvidconv_postosd,
                 sink_manager->caps, sink_manager->encoder,
@@ -340,6 +308,9 @@ bool PipelineManager::create_pipeline_elements(int num_sources,
         g_print("Unable to create context\n");
         return -1;
     }
+
+
+    primary_nv_infer_manager->create_primary_nv_infer(num_sources);
 
     message_handling->create_message_handler(pipeline, g_run_forever, loop);
     setup_pipeline();

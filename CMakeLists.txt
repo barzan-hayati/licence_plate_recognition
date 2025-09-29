@@ -89,6 +89,7 @@ set_source_files_properties(
     src/main.cpp
     src/pipeline_manager.cpp
     src/nv_osd_manager.cpp
+    src/primary_nv_infer_manager.cpp
     PROPERTIES COMPILE_FLAGS "-Wno-missing-field-initializers"
 )
 

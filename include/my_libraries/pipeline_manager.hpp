@@ -19,6 +19,7 @@
 #include "sink_manager.hpp"
 #include "rtsp_streaming_manager.hpp"
 #include "message_handling.hpp"
+#include "primary_nv_infer_manager.hpp"
 
 
 class PipelineManager {
@@ -40,6 +41,7 @@ class PipelineManager {
     SinkManager *sink_manager = new SinkManager();
     RtspStreamingManager *rtsp_streaming_manager = new RtspStreamingManager();
     MessageHandling *message_handling = new MessageHandling();
+    PrimaryNvInferManager *primary_nv_infer_manager = new PrimaryNvInferManager();
     typedef struct {
         TilerManager *tiler_manager;
     } DataPointer;
