@@ -1,3 +1,6 @@
 models/*.engine filter=lfs diff=lfs merge=lfs -text
 plugins/*.so filter=lfs diff=lfs merge=lfs -text
 models/*.weights filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.mkv filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
