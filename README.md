@@ -88,6 +88,13 @@ The compiled binary will appear under:
 build/bin/LPR
 ```
 
+## Pipeline
+
+The pipeline at this stage is as follows. Other pipelines, based on `display_output`, can be found in the `outputs` directory.
+
+![pipeline](./outputs/displaying_window.png)
+
+
 <!-- --- -->
 
 ## Run the Application
@@ -124,6 +131,16 @@ rtsp://127.0.0.1:3087/rtsp-output
 ```
 
 If you set `display_output` to `2` to save the processed video, the output file will be saved as `test.mkv`.
+
+
+![Demo](./build/output.gif)
+
+
+<!-- [▶️ Watch full demo video](./build/test.mkv) -->
+<!-- [![Watch full demo video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://drive.google.com/file/d/1yoSK9ttlaFib4FXOQuzaCs6T6-4u2viu/view?usp=sharing) -->
+<!-- [![Watch full demo video](https://drive.google.com/file/d/1yoSK9ttlaFib4FXOQuzaCs6T6-4u2viu/view?usp=sharing) -->
+
+
 
 <!-- --- -->
 
