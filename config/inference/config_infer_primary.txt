@@ -2,8 +2,8 @@
 gpu-id=0
 net-scale-factor=0.0039215697906911373
 model-color-format=0
-custom-network-config=car.cfg
-model-engine-file=../../models/car.engine
+custom-network-config=vehicle.cfg
+model-engine-file=../../models/vehicle.engine
 #int8-calib-file=calib.table
 labelfile-path=car_names.txt
 batch-size=1
