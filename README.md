@@ -133,7 +133,8 @@ rtsp://127.0.0.1:3087/rtsp-output
 If you set `display_output` to `2` to save the processed video, the output file will be saved as `test.mkv`.
 
 
-![Demo](./output/output.gif)
+![Demo](./outputs/output.gif)
+
 
 
 <!-- [▶️ Watch full demo video](./build/test.mkv) -->
