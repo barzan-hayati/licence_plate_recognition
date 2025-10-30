@@ -1,7 +1,7 @@
 {
     "MUXER_OUTPUT_HEIGHT": 1080,
     "MUXER_OUTPUT_WIDTH": 1920,
-    "output_video_path": "test.mkv",
+    "output_video_path": "output_video.mkv",
     "display_output": 1,
     "codec_rtsp_out": "H264",
     "mount_address": "/rtsp-output",
