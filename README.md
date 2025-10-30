@@ -47,6 +47,20 @@ licence_plate_recognition/
 
 <!-- --- -->
 
+
+### Related Videos
+
+Here are example input or output videos demonstrating model performance:
+
+| Video | Description | Link |
+|--------|--------------|------|
+| `day.mp4` | A sample **daytime video** captured from the camera view used for model testing | [Day video](https://drive.google.com/file/d/1uWis1Ejj6u0PQQpnHMHgKtNay8uXNEDk/view?usp=sharing) |
+| `night.mp4` | A sample **nighttime video** from the **same camera view** as the day video | [Night video](https://drive.google.com/file/d/1dqHG6iUxfMf8SbEbDKKO7ekjMVrzNW6v/view?usp=sharing) |
+| `output.mkv` | **Processed output video**, showing detected cars with bounding boxes drawn | [output video](https://drive.google.com/file/d/1yoSK9ttlaFib4FXOQuzaCs6T6-4u2viu/view?usp=drive_link) |
+
+
+<!-- --- -->
+
 ## Prerequisites
 
 Before building, ensure you have the following installed, depending on DeepStream version:
